@@ -36,7 +36,7 @@ class _PickPageState extends State<PickPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                "Pic Your Side",
+                "Pick Your Side",
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w700,
@@ -54,7 +54,7 @@ class _PickPageState extends State<PickPage> {
                         onTap: () => setGroupvalue('X'),
                         child: X(100, 20),
                       ),
-                      Radio(
+                      Radio<String>(
                         onChanged: (e) => setGroupvalue(e),
                         activeColor: MyTheme.orange,
                         value: 'X',
@@ -78,7 +78,7 @@ class _PickPageState extends State<PickPage> {
                         onTap: () => setGroupvalue("O"),
                         child: O(100, MyTheme.green),
                       ),
-                      Radio(
+                      Radio<String>(
                         onChanged: (e) => setGroupvalue(e),
                         activeColor: MyTheme.orange,
                         value: 'O',
