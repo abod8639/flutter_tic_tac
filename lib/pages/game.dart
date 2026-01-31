@@ -17,10 +17,12 @@ class GamePageState extends State<GamePage> {
   final boardService = locator<BoardService>();
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        boardService.newGame();
-        return Future.value(true);
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
+        if (didPop) {
+          boardService.newGame();
+        }
       },
       child: SafeArea(
         child: Scaffold(

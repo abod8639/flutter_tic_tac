@@ -22,7 +22,7 @@ class Logo extends StatelessWidget {
                       radius: 0.18,
                       colors: [
                         Colors.transparent,
-                        Colors.white.withOpacity(.35)
+                        Colors.white.withValues(alpha: .35)
                       ],
                       stops: [1, 1],
                     ),
@@ -37,7 +37,7 @@ class Logo extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(200),
-                      color: Colors.white.withOpacity(1),
+                      color: Colors.white.withValues(alpha: 1),
                     ),
                     height: 25,
                     width: 200,
@@ -52,7 +52,7 @@ class Logo extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(200),
-                      color: Colors.white.withOpacity(1),
+                      color: Colors.white.withValues(alpha: 1),
                     ),
                     height: 25,
                     width: 140,
