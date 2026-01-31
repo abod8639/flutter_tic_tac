@@ -41,10 +41,9 @@ class StartPage extends StatelessWidget {
                 children: <Widget>[
                   const Spacer(flex: 2),
                   
-                  // قسم اللوجو والعنوان
                   Column(
                     children: [
-                       Logo(), // اللوجو أولاً يعطي هوية بصرية أقوى
+                     const  Logo(), 
                       const SizedBox(height: 20),
                       Text(
                         "TIC TAC",
@@ -63,7 +62,6 @@ class StartPage extends StatelessWidget {
                   
                   const Spacer(flex: 2),
 
-                  // قسم الأزرار - تم تحسين الأبعاد والجمالية
                   Column(
                     children: [
                       _buildMenuButton(
