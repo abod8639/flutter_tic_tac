@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac/theme/theme.dart';
 
-class X extends StatelessWidget {
+class XWidget extends StatelessWidget {
   final double size;
   final double height;
 
-  X(this.size, this.height, {super.key});
+  XWidget(this.size, this.height, {super.key});
 
 
   @override

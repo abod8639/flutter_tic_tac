@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class O extends StatelessWidget {
+class OWidget extends StatelessWidget {
   final double size;
   final Color color;
 
-  O(this.size, this.color, {super.key});
+  OWidget(this.size, this.color, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,8 @@ class O extends StatelessWidget {
           radius: 0.18,
           colors: [
             Colors.cyan,
-             color],
+             Colors.orange
+             ],
 
           stops: [1, 1],
         ),
