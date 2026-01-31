@@ -27,6 +27,9 @@ class BoardService {
   late BehaviorSubject<List<List<int>>> _fadingMoves$;
   BehaviorSubject<List<List<int>>> get fadingMoves$ => _fadingMoves$;
 
+  late BehaviorSubject<bool> _isEndless$;
+  BehaviorSubject<bool> get isEndless$ => _isEndless$;
+
   late String _start;
   List<List<int>> _xMoves = [];
   List<List<int>> _oMoves = [];
@@ -37,6 +40,10 @@ class BoardService {
   }
 
   void _updateFadingMoves() {
+    if (!_isEndless$.value) {
+      _fadingMoves$.add([]);
+      return;
+    }
     List<List<int>> fading = [];
     if (_xMoves.length == maxMoves) fading.add(_xMoves.first);
     if (_oMoves.length == maxMoves) fading.add(_oMoves.first);
@@ -54,9 +61,9 @@ class BoardService {
     // --- منطق الحركات المتلاشية ---
     List<List<int>> playerMoves = (player == 'X') ? _xMoves : _oMoves;
 
-    if (playerMoves.length >= maxMoves) {
-      List<int> oldestMove = playerMoves.removeAt(0); 
-      currentBoard[oldestMove[0]][oldestMove[1]] = " "; 
+    if (_isEndless$.value && playerMoves.length >= maxMoves) {
+      List<int> oldestMove = playerMoves.removeAt(0);
+      currentBoard[oldestMove[0]][oldestMove[1]] = " ";
     }
 
     playerMoves.add([i, j]);
@@ -108,7 +115,7 @@ class BoardService {
       int row = move[0];
       int col = move[1];
 
-      if (_oMoves.length >= maxMoves) {
+      if (_isEndless$.value && _oMoves.length >= maxMoves) {
         List<int> oldest = _oMoves.removeAt(0);
         currentBoard[oldest[0]][oldest[1]] = " ";
       }
@@ -192,6 +199,7 @@ class BoardService {
     _gameMode$ = BehaviorSubject<GameMode>.seeded(GameMode.Solo);
     _score$ = BehaviorSubject<MapEntry<int, int>>.seeded(MapEntry(0, 0));
     _fadingMoves$ = BehaviorSubject<List<List<int>>>.seeded([]);
+    _isEndless$ = BehaviorSubject<bool>.seeded(false);
     _start = 'X';
   }
 

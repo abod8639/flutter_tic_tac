@@ -21,11 +21,19 @@ class _PickPageState extends State<PickPage> {
   final soundService = locator<SoundService>();
 
   String groupValue = 'X';
+  bool isEndless = false;
 
   void setGroupValue(String value) {
     if (groupValue != value) {
       soundService.playSound('click'); // صوت خفيف عند التبديل
       setState(() => groupValue = value);
+    }
+  }
+
+  void setEndless(bool value) {
+    if (isEndless != value) {
+      soundService.playSound('click');
+      setState(() => isEndless = value);
     }
   }
 
@@ -74,11 +82,33 @@ class _PickPageState extends State<PickPage> {
 
             const Spacer(),
 
+            // --- خيار ميزة اللعبة اللانهائية ---
+            const Text(
+              "GAME MODE",
+              style: TextStyle(
+                color: Colors.white38,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
+            ),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildModeOption("NORMAL", !isEndless, () => setEndless(false)),
+                const SizedBox(width: 15),
+                _buildModeOption("ENDLESS", isEndless, () => setEndless(true)),
+              ],
+            ),
+
+            const Spacer(),
+
             // زر المتابعة
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: Btn(
                 onTap: () {
+                  boardService.isEndless$.add(isEndless);
                   boardService.resetBoard();
                   boardService.setStart(groupValue);
                   if (groupValue == 'O') {
@@ -96,8 +126,10 @@ class _PickPageState extends State<PickPage> {
                 borderRadius: 15,
                 color: MyTheme.red,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.play_arrow, color: Colors.white),
+                    const SizedBox(width: 10),
                     const Text(
                       "LET'S PLAY",
                       style: TextStyle(
@@ -111,6 +143,31 @@ class _PickPageState extends State<PickPage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildModeOption(String label, bool isActive, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: isActive ? MyTheme.orange : MyTheme.cardColor,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isActive ? Colors.white24 : Colors.transparent,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isActive ? Colors.white : Colors.white38,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
       ),
     );
