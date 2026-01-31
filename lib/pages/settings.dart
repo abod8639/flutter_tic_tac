@@ -5,7 +5,7 @@ import 'package:tic_tac/services/sound.dart';
 import 'package:tic_tac/theme/theme.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key key}) : super(key: key);
+  SettingsPage({Key? key}) : super(key: key);
 
   SettingsPageState createState() => SettingsPageState();
 }
@@ -22,7 +22,7 @@ class SettingsPageState extends State<SettingsPage> {
             return Container();
           }
 
-          final bool isSoundEnabled = snapshot.data;
+          final bool isSoundEnabled = snapshot.data??true;
 
           return Scaffold(
             body: Container(

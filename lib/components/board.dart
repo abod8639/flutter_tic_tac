@@ -11,7 +11,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'o.dart';
 
 class Board extends StatefulWidget {
-  Board({Key key}) : super(key: key);
+  Board({Key? key}) : super(key: key);
 
   _BoardState createState() => _BoardState();
 }
@@ -24,8 +24,8 @@ class _BoardState extends State<Board> {
   Widget build(BuildContext context) {
     return StreamBuilder<
             MapEntry<List<List<String>>, MapEntry<BoardState, String>>>(
-        stream: Observable.combineLatest2(boardService.board$,
-            boardService.boardState$, (a, b) => MapEntry(a, b)),
+        stream: Rx.combineLatest2(
+            boardService.board$, boardService.boardState$, (a, b) => MapEntry(a, b)),
         builder: (context,
             AsyncSnapshot<
                     MapEntry<List<List<String>>, MapEntry<BoardState, String>>>
@@ -34,15 +34,13 @@ class _BoardState extends State<Board> {
             return Container();
           }
 
-          final List<List<String>> board = snapshot.data.key;
-          final MapEntry<BoardState, String> state = snapshot.data.value;
+          final List<List<String>> board = snapshot.data!.key;
+          final MapEntry<BoardState, String> state = snapshot.data!.value;
 
           if (state.key == BoardState.Done) {
             boardService.resetBoard();
 
-            String title = 'Winner';
-
-            if (state.value == null) {
+            if (state.value == "") {
               title = "Draw";
             }
 
@@ -54,7 +52,7 @@ class _BoardState extends State<Board> {
                         children: <Widget>[X(50, 20), O(50, MyTheme.green)],
                       ));
 
-            WidgetsBinding.instance.addPostFrameCallback((_) => {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
                   Alert(
                     context: context,
                     title: title,
@@ -64,7 +62,7 @@ class _BoardState extends State<Board> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[body]),
-                  ).show()
+                  ).show();
                 });
           }
 

@@ -47,7 +47,7 @@ class BoardService {
       _boardState$.add(MapEntry(BoardState.Done, player));
       return;
     } else if (isBoardFull()) {
-      _boardState$.add(MapEntry(BoardState.Done, null));
+      _boardState$.add(MapEntry(BoardState.Done, ""));
     } else if (_gameMode$.value == GameMode.Solo) {
       botMove();
     }
@@ -56,7 +56,7 @@ class BoardService {
   botMove() {
     String player = _player$.value;
     List<List<String>> currentBoard = _board$.value;
-    List<List<int>> temp = List<List<int>>();
+    List<List<int>> temp = List<List<int>>.empty(growable: true);
     for (var i = 0; i < currentBoard.length; i++) {
       for (var j = 0; j < currentBoard[i].length; j++) {
         if (currentBoard[i][j] == " ") {
@@ -81,7 +81,7 @@ class BoardService {
       _boardState$.add(MapEntry(BoardState.Done, player));
       return;
     } else if (isBoardFull()) {
-      _boardState$.add(MapEntry(BoardState.Done, null));
+      _boardState$.add(MapEntry(BoardState.Done, ""));
     }
   }
 

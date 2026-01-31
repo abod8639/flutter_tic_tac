@@ -32,8 +32,8 @@ class GamePageState extends State<GamePage> {
                   if (!snapshot.hasData) {
                     return Container();
                   }
-                  final int xScore = snapshot.data.key;
-                  final int oScore = snapshot.data.value;
+                  final int xScore = snapshot.data!.key;
+                  final int oScore = snapshot.data!.value;
 
                   return Container(
                     // color: Colors.red,

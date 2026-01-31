@@ -16,12 +16,12 @@ class StartPage extends StatelessWidget {
   final soundService = locator<SoundService>();
   final alertService = locator<AlertService>();
 
-  StartPage({Key key}) : super(key: key);
+  StartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return InkWell (
+      onTap:  () {
         Future.value(false);
       },
       child: SafeArea(

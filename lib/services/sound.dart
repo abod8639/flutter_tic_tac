@@ -1,24 +1,24 @@
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SoundService {
-  BehaviorSubject<bool> _enableSound$;
+  late BehaviorSubject<bool> _enableSound$;
   BehaviorSubject<bool> get enableSound$ => _enableSound$;
-  AudioPlayer _fixedPlayer;
-  AudioCache _player;
+  final AudioPlayer _player = AudioPlayer();
 
   SoundService() {
     _enableSound$ = BehaviorSubject<bool>.seeded(true);
-    _fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
-    _player = AudioCache(fixedPlayer: _fixedPlayer);
-    _player.loadAll(['x.mp3', 'o.mp3', "click.mp3"]);
   }
 
-  playSound(String sound) {
+  void playSound(String sound) async {
     bool isSoundEnabled = _enableSound$.value;
     if (isSoundEnabled) {
-      _player.play("$sound.mp3");
+      await _player.play(AssetSource("$sound.mp3"));
     }
+  }
+
+  void dispose() {
+    _player.dispose();
+    _enableSound$.close();
   }
 }
