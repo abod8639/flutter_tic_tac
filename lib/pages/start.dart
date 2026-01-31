@@ -85,7 +85,7 @@ class StartPage extends StatelessWidget {
                         child: Text(
                           "single player".toUpperCase(),
                           style: TextStyle(
-                              color: Colors.black.withOpacity(.8),
+                              color: Colors.black.withValues(alpha: .8),
                               fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),
@@ -110,7 +110,7 @@ class StartPage extends StatelessWidget {
                         child: Text(
                           "with a friend".toUpperCase(),
                           style: TextStyle(
-                              color: Colors.black.withOpacity(.8),
+                              color: Colors.black.withValues(alpha: .8),
                               fontSize: 16,
                               fontWeight: FontWeight.w700),
                         ),

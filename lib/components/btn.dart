@@ -39,7 +39,7 @@ class Btn extends StatelessWidget {
                   colors: gradient!),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(.1),
+                color: Colors.black.withValues(alpha: .1),
                 spreadRadius: 5,
                 blurRadius: 10)
           ],
