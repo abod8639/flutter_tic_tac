@@ -70,7 +70,7 @@ class SettingsPageState extends State<SettingsPage> {
                             soundService.enableSound$.add(e);
                           },
                           value: isSoundEnabled,
-                          activeColor: MyTheme.orange,
+                          activeTrackColor: MyTheme.orange,
                         )
                       ],
                     ),
