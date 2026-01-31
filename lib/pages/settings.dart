@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac/services/provider.dart';
 import 'package:tic_tac/services/sound.dart';
-import 'package:tic_tac/theme/theme.dart';
+import 'package:tic_tac/core/theme.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key? key}) : super(key: key);

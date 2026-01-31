@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac/components/board.dart';
-import 'package:tic_tac/components/o.dart';
-import 'package:tic_tac/components/x.dart';
+import 'package:tic_tac/components/o_widget.dart';
+import 'package:tic_tac/components/x_widget.dart';
 import 'package:tic_tac/services/board.dart';
 import 'package:tic_tac/services/provider.dart';
-import 'package:tic_tac/theme/theme.dart';
+import 'package:tic_tac/core/theme.dart';
 
 class GamePage extends StatefulWidget {
   GamePageState createState() => GamePageState();
@@ -23,7 +23,7 @@ class GamePageState extends State<GamePage> {
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           body: SafeArea(
             child: StreamBuilder<MapEntry<int, int>>(
                 stream: boardService.score$,
@@ -47,7 +47,7 @@ class GamePageState extends State<GamePage> {
                             children: <Widget>[
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
-                                color: Colors.white,
+                                // color: Colors.white,
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,21 +57,21 @@ class GamePageState extends State<GamePage> {
                                       width: 40,
                                       child: Material(
                                         elevation: 5,
-                                        color: Colors.white,
+                                        // color: Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         child: Center(
                                             child: Text(
                                           "$xScore",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18),
+                                          // style: TextStyle(
+                                          //     color: Colors.black,
+                                          //     fontSize: 18),
                                         )),
                                       ),
                                     ),
                                     Expanded(
                                       child: Container(),
                                     ),
-                                    X(35, 10),
+                                    XWidget(35, 10),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
@@ -91,12 +91,12 @@ class GamePageState extends State<GamePage> {
                               )),
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
-                                color: Colors.white,
+                                // color: Colors.white,
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    O(35, MyTheme.green),
+                                    OWidget(35, MyTheme.teal ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 10,
@@ -114,14 +114,12 @@ class GamePageState extends State<GamePage> {
                                       width: 40,
                                       child: Material(
                                         elevation: 5,
-                                        color: Colors.white,
+                                        // color: Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         child: Center(
                                             child: Text(
                                           "$oScore",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18),
+                                          // style: 
                                         )),
                                       ),
                                     ),
@@ -132,7 +130,7 @@ class GamePageState extends State<GamePage> {
                           ),
                         ),
                         Container(
-                          color: Colors.white,
+                          // color: Colors.white,
                           height: 60,
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Row(

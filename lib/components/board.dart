@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:tic_tac/components/x.dart';
+import 'package:tic_tac/components/x_widget.dart';
 import 'package:tic_tac/services/alert.dart';
 import 'package:tic_tac/services/board.dart';
 import 'package:tic_tac/services/provider.dart';
-import 'package:tic_tac/theme/theme.dart';
+import 'package:tic_tac/core/theme.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import 'o.dart';
+import 'o_widget.dart';
 
 class Board extends StatefulWidget {
   Board({Key? key}) : super(key: key);
@@ -45,11 +45,13 @@ class _BoardState extends State<Board> {
             }
 
             Widget body = state.value == 'X'
-                ? X(50, 20)
+                ? XWidget(50, 20)
                 : (state.value == "O"
-                    ? O(50, MyTheme.green)
+                    ? OWidget(50, MyTheme.orange)
                     : Row(
-                        children: <Widget>[X(50, 20), O(50, MyTheme.green)],
+                        children: <Widget>[
+                          XWidget(50, 20), 
+                          OWidget(50, MyTheme.orange)],
                       ));
 
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -69,14 +71,14 @@ class _BoardState extends State<Board> {
           return Container(
             padding: EdgeInsets.all(30),
             decoration: BoxDecoration(
-              color: Colors.white,
+              // color: Colors.white,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
-                BoxShadow(
-                  blurRadius: 7.0,
-                  spreadRadius: 0.0,
-                  color: Color(0x1F000000),
-                ),
+                // BoxShadow(
+                //   blurRadius: 7.0,
+                //   spreadRadius: 0.0,
+                //   color: Color(0x1F000000),
+                // ),
               ],
             ),
             child: Column(
@@ -136,7 +138,7 @@ class _BoardState extends State<Board> {
     }
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        // color: Colors.white,
         border: border,
       ),
       height: height,
@@ -145,8 +147,8 @@ class _BoardState extends State<Board> {
         child: item == ' '
             ? null
             : item == 'X'
-                ? X(50, 13)
-                : O(50, MyTheme.green),
+                ? XWidget(50, 13)
+                : OWidget(50, MyTheme.orange),
       ),
     );
   }

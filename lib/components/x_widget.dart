@@ -1,67 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac/theme/theme.dart';
+import 'package:tic_tac/core/theme.dart';
 
 class XWidget extends StatelessWidget {
   final double size;
-  final double height;
+  final double thickness; // قمت بتغيير الاسم من height ليكون أوضح
 
-  XWidget(this.size, this.height, {super.key});
-
+  const XWidget(this.size, this.thickness, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: size,
       width: size,
       child: Stack(
+        alignment: Alignment.center, // توسيط الخطين تلقائياً
         children: <Widget>[
-          Positioned(
-            left: 0,
-            top: size / 2 - height / 2,
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(-45 / 360),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(200),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    stops: [0.1, 0.8],
-                    colors: [
-                      MyTheme.red,
-                      MyTheme.orange,
-                    ],
-                  ),
-                ),
-                height: height,
-                width: size,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 0,
-            top: size / 2 - height / 2,
-            child: RotationTransition(
-              turns: AlwaysStoppedAnimation(45 / 360),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(200),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    stops: [0.1, 0.8],
-                    colors: [
-                      MyTheme.orange,
-                      MyTheme.red,
-                    ],
-                  ),
-                ),
-                height: height,
-                width: size,
-              ),
-            ),
-          )
+          _buildLine(angle: 45),
+          _buildLine(angle: -45),
         ],
+      ),
+    );
+  }
+
+  Widget _buildLine({required double angle}) {
+    return Transform.rotate(
+      angle: angle * 3.14159 / 180, // تحويل الدرجات إلى راديان
+      child: Container(
+        width: size,
+        height: thickness,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(thickness),
+          boxShadow: [
+            BoxShadow(
+              color: MyTheme.red.withOpacity(0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          gradient: LinearGradient(
+            colors: [
+              MyTheme.red,
+              MyTheme.orange,
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
       ),
     );
   }

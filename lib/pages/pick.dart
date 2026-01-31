@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac/components/btn.dart';
-import 'package:tic_tac/components/o.dart';
-import 'package:tic_tac/components/x.dart';
+import 'package:tic_tac/components/o_widget.dart';
+import 'package:tic_tac/components/x_widget.dart';
 import 'package:tic_tac/services/board.dart';
 import 'package:tic_tac/services/provider.dart';
 import 'package:tic_tac/services/sound.dart';
-import 'package:tic_tac/theme/theme.dart';
+import 'package:tic_tac/core/theme.dart';
 
 import 'game.dart';
 
@@ -52,7 +52,7 @@ class _PickPageState extends State<PickPage> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () => setGroupvalue('X'),
-                        child: X(100, 20),
+                        child: XWidget(100, 20),
                       ),
                       Radio<String>(
                         onChanged: (e) => setGroupvalue(e),
@@ -76,7 +76,7 @@ class _PickPageState extends State<PickPage> {
                     children: <Widget>[
                       GestureDetector(
                         onTap: () => setGroupvalue("O"),
-                        child: O(100, MyTheme.green),
+                        child: OWidget(100, MyTheme.red),
                       ),
                       Radio<String>(
                         onChanged: (e) => setGroupvalue(e),
