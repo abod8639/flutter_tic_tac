@@ -51,8 +51,19 @@ class GamePageState extends State<GamePage> {
                         ),
 
                         Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          alignment: Alignment.center,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
+                            // border: Border.all(color: Colors.white),
+                            // borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
                             color: MyTheme.cardColor.withRed(30),
                             borderRadius: BorderRadius.circular(20),
                           ),
