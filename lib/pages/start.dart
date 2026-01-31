@@ -67,6 +67,7 @@ class StartPage extends StatelessWidget {
                   Column(
                     children: [
                       _buildMenuButton(
+                        icon: Icons.play_arrow,
                         context,
                         label: "SINGLE PLAYER",
                         isPrimary: true,
@@ -81,6 +82,7 @@ class StartPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       _buildMenuButton(
+                        icon: Icons.group,
                         context,
                         label: "WITH A FRIEND",
                         isPrimary: false,
@@ -125,22 +127,28 @@ class StartPage extends StatelessWidget {
   Widget _buildMenuButton(BuildContext context,
       {required String label,
       required VoidCallback onTap,
-      bool isPrimary = false}) {
+      bool isPrimary = false,
+      required IconData icon}) {
     return Btn(
       onTap: onTap,
       height: 60,
       width: double.infinity, // يأخذ عرض الشاشة المتاح
       borderRadius: 15,
       color: isPrimary ? MyTheme.red : MyTheme.cardColor,
-      child: Text(
-        label,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.white),
+          SizedBox(width: 10),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
           letterSpacing: 1.2,
         ),
-      ),
+    )]),
     );
   }
 

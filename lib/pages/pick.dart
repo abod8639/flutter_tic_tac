@@ -95,13 +95,18 @@ class _PickPageState extends State<PickPage> {
                 width: 280,
                 borderRadius: 15,
                 color: MyTheme.red,
-                child: const Text(
-                  "LET'S PLAY",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      letterSpacing: 2),
+                child: Row(
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white),
+                    const Text(
+                      "LET'S PLAY",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          letterSpacing: 2),
+                    ),
+                  ],
                 ),
               ),
             ),

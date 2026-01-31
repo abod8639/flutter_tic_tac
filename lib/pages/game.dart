@@ -41,7 +41,7 @@ class GamePageState extends State<GamePage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        // نتيجة اللاعب X
+
                         _buildScoreCard(
                           label: "Player X",
                           score: xScore,
@@ -50,7 +50,6 @@ class GamePageState extends State<GamePage> {
                           color: MyTheme.red,
                         ),
 
-                        // لوحة اللعب الرئيسية
                         Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -60,7 +59,6 @@ class GamePageState extends State<GamePage> {
                           child: const Board(),
                         ),
 
-                        // نتيجة اللاعب O
                         _buildScoreCard(
                           label: "Player O",
                           score: oScore,
@@ -68,6 +66,7 @@ class GamePageState extends State<GamePage> {
                           isLeft: false,
                           color: MyTheme.teal,
                         ),
+                        
                       ],
                     ),
                   ),
@@ -102,7 +101,9 @@ class GamePageState extends State<GamePage> {
                 letterSpacing: 4),
           ),
           IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.white70),
+            icon: const Icon(
+              size: 30,
+              Icons.refresh, color: Colors.white70),
             onPressed: () => boardService.newGame(),
           ),
         ],
