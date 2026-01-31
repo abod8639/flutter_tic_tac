@@ -20,8 +20,8 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell (
-      onTap:  () {
+    return InkWell(
+      onTap: () {
         Future.value(false);
       },
       child: SafeArea(

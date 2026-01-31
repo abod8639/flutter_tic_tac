@@ -28,7 +28,7 @@ class Btn extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius??0),
+          borderRadius: BorderRadius.circular(borderRadius ?? 0),
           color: color,
           gradient: this.gradient == null
               ? null

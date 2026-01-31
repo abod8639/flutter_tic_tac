@@ -7,6 +7,7 @@ import 'package:tic_tac/services/sound.dart';
 final soundService = locator<SoundService>();
 
 enum BoardState { Done, Play }
+
 enum GameMode { Solo, Multi }
 
 class BoardService {

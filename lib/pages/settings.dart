@@ -22,7 +22,7 @@ class SettingsPageState extends State<SettingsPage> {
             return Container();
           }
 
-          final bool isSoundEnabled = snapshot.data??true;
+          final bool isSoundEnabled = snapshot.data ?? true;
 
           return Scaffold(
             body: Container(
