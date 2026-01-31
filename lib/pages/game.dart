@@ -7,158 +7,139 @@ import 'package:tic_tac/services/provider.dart';
 import 'package:tic_tac/core/theme.dart';
 
 class GamePage extends StatefulWidget {
+  const GamePage({super.key});
+
+  @override
   GamePageState createState() => GamePageState();
 }
 
 class GamePageState extends State<GamePage> {
   final boardService = locator<BoardService>();
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: true,
       onPopInvokedWithResult: (bool didPop, dynamic result) {
-        if (didPop) {
-          boardService.newGame();
-        }
+        if (didPop) boardService.newGame();
       },
-      child: SafeArea(
-        child: Scaffold(
-          // backgroundColor: Colors.white,
-          body: SafeArea(
-            child: StreamBuilder<MapEntry<int, int>>(
-                stream: boardService.score$,
-                builder: (context, AsyncSnapshot<MapEntry<int, int>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container();
-                  }
-                  final int xScore = snapshot.data!.key;
-                  final int oScore = snapshot.data!.value;
+      child: Scaffold(
+        backgroundColor: MyTheme.background,
+        body: SafeArea(
+          child: StreamBuilder<MapEntry<int, int>>(
+            stream: boardService.score$,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return const SizedBox.shrink();
 
-                  return Container(
-                    // color: Colors.red,
-                    width: MediaQuery.of(context).size.width,
+              final int xScore = snapshot.data!.key;
+              final int oScore = snapshot.data!.value;
+
+              return Column(
+                children: <Widget>[
+                  // شريط علوي أنيق يحتوي على زر الرجوع واللقب
+                  _buildTopBar(context),
+
+                  Expanded(
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                // color: Colors.white,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Material(
-                                        elevation: 5,
-                                        // color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Center(
-                                            child: Text(
-                                          "$xScore",
-                                          // style: TextStyle(
-                                          //     color: Colors.black,
-                                          //     fontSize: 18),
-                                        )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    ),
-                                    XWidget(35, 10),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Text(
-                                        "Player",
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                  child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[Board()],
-                              )),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                // color: Colors.white,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    OWidget(35, MyTheme.teal ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      child: Text(
-                                        "Player",
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    ),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Material(
-                                        elevation: 5,
-                                        // color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Center(
-                                            child: Text(
-                                          "$oScore",
-                                          // style: 
-                                        )),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                        // نتيجة اللاعب X
+                        _buildScoreCard(
+                          label: "Player X",
+                          score: xScore,
+                          icon: XWidget(30, 8),
+                          isLeft: true,
+                          color: MyTheme.red,
                         ),
+
+                        // لوحة اللعب الرئيسية
                         Container(
-                          // color: Colors.white,
-                          height: 60,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.home),
-                                onPressed: () {
-                                  boardService.newGame();
-                                  Navigator.of(context)
-                                      .popUntil((route) => route.isFirst);
-                                },
-                                color: Colors.black87,
-                                iconSize: 30,
-                              ),
-                            ],
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: MyTheme.cardColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(20),
                           ),
+                          child: const Board(),
+                        ),
+
+                        // نتيجة اللاعب O
+                        _buildScoreCard(
+                          label: "Player O",
+                          score: oScore,
+                          icon: OWidget(30, MyTheme.teal),
+                          isLeft: false,
+                          color: MyTheme.teal,
                         ),
                       ],
                     ),
-                  );
-                }),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
+
+  Widget _buildTopBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white70),
+            onPressed: () {
+              boardService.newGame();
+              Navigator.pop(context);
+            },
+          ),
+          const Text(
+            "BATTLE",
+            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 4),
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh, color: Colors.white70),
+            onPressed: () => boardService.newGame(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScoreCard({
+    required String label,
+    required int score,
+    required Widget icon,
+    required bool isLeft,
+    required Color color,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: MyTheme.cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withOpacity(0.2)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (isLeft) icon else Text("$score", style: _scoreStyle),
+          Text(
+            label.toUpperCase(),
+            style: TextStyle(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.bold, letterSpacing: 1.5),
+          ),
+          if (isLeft) Text("$score", style: _scoreStyle) else icon,
+        ],
+      ),
+    );
+  }
+
+  TextStyle get _scoreStyle => const TextStyle(
+        color: Colors.white,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      );
 }

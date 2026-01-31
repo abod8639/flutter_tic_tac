@@ -10,7 +10,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'o_widget.dart';
 
 class Board extends StatefulWidget {
-  Board({Key? key}) : super(key: key);
+ const Board({Key? key}) : super(key: key);
 
   _BoardState createState() => _BoardState();
 }

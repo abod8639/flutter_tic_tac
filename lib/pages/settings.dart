@@ -5,7 +5,7 @@ import 'package:tic_tac/services/sound.dart';
 import 'package:tic_tac/core/theme.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({Key? key}) : super(key: key);
+ const SettingsPage({Key? key}) : super(key: key);
 
   SettingsPageState createState() => SettingsPageState();
 }
