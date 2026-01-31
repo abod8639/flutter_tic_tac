@@ -51,9 +51,9 @@ class SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                 ),
-                
+
                 const SizedBox(height: 20),
-                
+
                 // يمكنك إضافة خيار آخر هنا مستقبلاً مثل الاهتزاز (Vibration)
                 _buildSettingsTile(
                   title: "Vibrations",
@@ -67,11 +67,12 @@ class SettingsPageState extends State<SettingsPage> {
                 ),
 
                 const Spacer(),
-                
+
                 // نسخة التطبيق في الأسفل (لمسة احترافية)
                 Text(
                   "Version 1.0.0",
-                  style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 12),
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.3), fontSize: 12),
                 ),
               ],
             ),
@@ -112,11 +113,15 @@ class SettingsPageState extends State<SettingsPage> {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   subtitle,
-                  style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 13),
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.5), fontSize: 13),
                 ),
               ],
             ),

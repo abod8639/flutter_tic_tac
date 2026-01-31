@@ -57,21 +57,23 @@ class _PickPageState extends State<PickPage> {
             const SizedBox(height: 10),
             Text(
               "Who goes first?",
-              style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 16),
+              style:
+                  TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 16),
             ),
             const Spacer(),
-            
+
             // منطقة اختيار الجانب
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 _buildPickerOption('X', XWidget(80, 15), MyTheme.red),
-                _buildPickerOption('O', OWidget(80, MyTheme.teal), MyTheme.teal),
+                _buildPickerOption(
+                    'O', OWidget(80, MyTheme.teal), MyTheme.teal),
               ],
             ),
-            
+
             const Spacer(),
-            
+
             // زر المتابعة
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
@@ -84,7 +86,10 @@ class _PickPageState extends State<PickPage> {
                     boardService.botMove();
                   }
                   soundService.playSound('click');
-                  Navigator.push(context, CupertinoPageRoute(builder: (context) => const GamePage()));
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const GamePage()));
                 },
                 height: 60,
                 width: 280,
@@ -92,7 +97,11 @@ class _PickPageState extends State<PickPage> {
                 color: MyTheme.red,
                 child: const Text(
                   "LET'S PLAY",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: 2),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      letterSpacing: 2),
                 ),
               ),
             ),
@@ -104,7 +113,7 @@ class _PickPageState extends State<PickPage> {
 
   Widget _buildPickerOption(String value, Widget icon, Color color) {
     bool isSelected = groupValue == value;
-    
+
     return GestureDetector(
       onTap: () => setGroupValue(value),
       child: AnimatedContainer(
@@ -118,7 +127,9 @@ class _PickPageState extends State<PickPage> {
             color: isSelected ? color : Colors.transparent,
             width: 3,
           ),
-          boxShadow: isSelected ? [BoxShadow(color: color.withOpacity(0.3), blurRadius: 20)] : [],
+          boxShadow: isSelected
+              ? [BoxShadow(color: color.withOpacity(0.3), blurRadius: 20)]
+              : [],
         ),
         child: Column(
           children: [

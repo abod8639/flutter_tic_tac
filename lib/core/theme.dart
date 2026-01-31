@@ -12,7 +12,7 @@ class MyTheme {
   static const Color orange = Color(0xFFFF9100);
   static const Color teal = Color(0xFF00E5FF);
   static const Color background = Color(0xFF1A1A2E); // أزرق ليلي عميق
-  static const Color cardColor = Color(0xFF16213E);  // لون المربعات
+  static const Color cardColor = Color(0xFF16213E); // لون المربعات
   static const Color accentColor = Color(0xFFE94560);
 
   // 2. بناء الـ ThemeData
@@ -21,7 +21,7 @@ class MyTheme {
     brightness: Brightness.dark,
     primaryColor: red,
     scaffoldBackgroundColor: background,
-    
+
     // تنسيق البطاقات (مربعات اللعبة)
     cardTheme: CardThemeData(
       color: cardColor,

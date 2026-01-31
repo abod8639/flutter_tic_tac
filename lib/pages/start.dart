@@ -33,17 +33,17 @@ class StartPage extends StatelessWidget {
             left: -50,
             child: _buildBlurCircle(MyTheme.red.withOpacity(0.15)),
           ),
-          
+
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: <Widget>[
                   const Spacer(flex: 2),
-                  
+
                   Column(
                     children: [
-                     const  Logo(), 
+                      const Logo(),
                       const SizedBox(height: 20),
                       Text(
                         "TIC TAC",
@@ -53,13 +53,15 @@ class StartPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           letterSpacing: 8,
                           shadows: [
-                            Shadow(color: MyTheme.red.withOpacity(0.5), blurRadius: 15)
+                            Shadow(
+                                color: MyTheme.red.withOpacity(0.5),
+                                blurRadius: 15)
                           ],
                         ),
                       ),
                     ],
                   ),
-                  
+
                   const Spacer(flex: 2),
 
                   Column(
@@ -71,7 +73,10 @@ class StartPage extends StatelessWidget {
                         onTap: () {
                           boardService.gameMode$.add(GameMode.Solo);
                           soundService.playSound('click');
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => PickPage()));
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => PickPage()));
                         },
                       ),
                       const SizedBox(height: 20),
@@ -82,20 +87,28 @@ class StartPage extends StatelessWidget {
                         onTap: () {
                           boardService.gameMode$.add(GameMode.Multi);
                           soundService.playSound('click');
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => GamePage()));
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => GamePage()));
                         },
                       ),
                     ],
                   ),
-                  
+
                   const Spacer(flex: 1),
 
                   // زر الإعدادات بشكل أيقونة عصرية في الأسفل
                   IconButton(
-                    icon: const Icon(Icons.settings_outlined, color: Colors.white54, size: 32),
+                    icon: const Icon(Icons.settings_outlined,
+                        color: Colors.white54, size: 32),
                     onPressed: () {
                       soundService.playSound('click');
-                      Navigator.push(context, CupertinoPageRoute(fullscreenDialog: true, builder: (context) => SettingsPage()));
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              fullscreenDialog: true,
+                              builder: (context) => SettingsPage()));
                     },
                   ),
                   const SizedBox(height: 20),
@@ -109,7 +122,10 @@ class StartPage extends StatelessWidget {
   }
 
   // ودجت مساعد لبناء الأزرار بتصميم موحد
-  Widget _buildMenuButton(BuildContext context, {required String label, required VoidCallback onTap, bool isPrimary = false}) {
+  Widget _buildMenuButton(BuildContext context,
+      {required String label,
+      required VoidCallback onTap,
+      bool isPrimary = false}) {
     return Btn(
       onTap: onTap,
       height: 60,
@@ -140,7 +156,8 @@ class StartPage extends StatelessWidget {
       child: ClipRRect(
         child: BackdropFilter(
           filter: ColorFilter.mode(color, BlendMode.srcIn),
-          child: Container(decoration: const BoxDecoration(shape: BoxShape.circle)),
+          child: Container(
+              decoration: const BoxDecoration(shape: BoxShape.circle)),
         ),
       ),
     );

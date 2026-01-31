@@ -30,7 +30,6 @@ class Logo extends StatelessWidget {
               ],
             ),
           ),
-          
           Stack(
             children: [
               _buildXLine(angle: 45),

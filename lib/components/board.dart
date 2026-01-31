@@ -10,7 +10,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'o_widget.dart';
 
 class Board extends StatefulWidget {
- const Board({Key? key}) : super(key: key);
+  const Board({Key? key}) : super(key: key);
 
   _BoardState createState() => _BoardState();
 }
@@ -50,8 +50,9 @@ class _BoardState extends State<Board> {
                     ? OWidget(50, MyTheme.orange)
                     : Row(
                         children: <Widget>[
-                          XWidget(50, 20), 
-                          OWidget(50, MyTheme.orange)],
+                          XWidget(50, 20),
+                          OWidget(50, MyTheme.orange)
+                        ],
                       ));
 
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -118,37 +119,36 @@ class _BoardState extends State<Board> {
   }
 
   Widget _buildBox(int i, int j, item) {
-    BoxBorder border = Border();
-    BorderSide borderStyle = BorderSide(width: 1, color: Colors.black26);
-    double height = 80;
-    double width = 60;
-    if (j == 1) {
-      border = Border(right: borderStyle, left: borderStyle);
-      height = width = 80;
-    }
-    if (i == 1) {
-      border = Border(top: borderStyle, bottom: borderStyle);
-    }
-    if (i == 1 && j == 1) {
-      border = Border(
-          top: borderStyle,
-          bottom: borderStyle,
-          left: borderStyle,
-          right: borderStyle);
-    }
+    BorderSide neonBorder = BorderSide(
+      width: 2,
+      color: Colors.white.withOpacity(0.08),
+    );
+    BoxBorder border = Border(
+      top: i == 1 || i == 2 ? neonBorder : BorderSide.none,
+      bottom: i == 0 || i == 1 ? neonBorder : BorderSide.none,
+      left: j == 1 || j == 2 ? neonBorder : BorderSide.none,
+      right: j == 0 || j == 1 ? neonBorder : BorderSide.none,
+    );
+
     return Container(
       decoration: BoxDecoration(
-        // color: Colors.white,
         border: border,
       ),
-      height: height,
-      width: width,
+      height: MediaQuery.of(context).size.width / 4,
+      width: MediaQuery.of(context).size.width / 4,
       child: Center(
-        child: item == ' '
-            ? null
-            : item == 'X'
-                ? XWidget(50, 13)
-                : OWidget(50, MyTheme.orange),
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+          child: item == ' '
+              ? const SizedBox.shrink()
+              : item == 'X'
+                  ? const XWidget(50, 12)
+                  : const OWidget(
+                      50, MyTheme.teal), // استخدمنا Teal للـ O لتباين أفضل
+        ),
       ),
     );
   }

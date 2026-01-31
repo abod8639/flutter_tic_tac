@@ -25,11 +25,11 @@ class OWidget extends StatelessWidget {
           colors: [
             Colors.transparent, // الفراغ الداخلي
             Colors.transparent, // نهاية الفراغ
-            color,              // بداية لون الحلقة
+            color, // بداية لون الحلقة
             color, // تدرج خفيف للحلقة
           ],
           // الـ stops تحدد أين يبدأ وينتهي كل لون (من 0.0 إلى 1.0)
-          stops: const [0.0, 0.7, 0.72, 0.5], 
+          stops: const [0.0, 0.7, 0.72, 0.5],
         ),
       ),
     );

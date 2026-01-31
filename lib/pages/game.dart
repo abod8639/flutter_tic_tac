@@ -36,9 +36,7 @@ class GamePageState extends State<GamePage> {
 
               return Column(
                 children: <Widget>[
-                  // شريط علوي أنيق يحتوي على زر الرجوع واللقب
                   _buildTopBar(context),
-
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,7 +95,11 @@ class GamePageState extends State<GamePage> {
           ),
           const Text(
             "BATTLE",
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 4),
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 4),
           ),
           IconButton(
             icon: const Icon(Icons.refresh, color: Colors.white70),
@@ -129,7 +131,10 @@ class GamePageState extends State<GamePage> {
           if (isLeft) icon else Text("$score", style: _scoreStyle),
           Text(
             label.toUpperCase(),
-            style: TextStyle(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.bold, letterSpacing: 1.5),
+            style: TextStyle(
+                color: Colors.white.withOpacity(0.9),
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5),
           ),
           if (isLeft) Text("$score", style: _scoreStyle) else icon,
         ],

@@ -3,7 +3,7 @@ import 'package:tic_tac/core/theme.dart';
 
 class XWidget extends StatelessWidget {
   final double size;
-  final double thickness; // قمت بتغيير الاسم من height ليكون أوضح
+  final double thickness;
 
   const XWidget(this.size, this.thickness, {super.key});
 
