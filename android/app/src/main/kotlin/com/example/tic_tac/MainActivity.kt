@@ -1,4 +1,4 @@
-package com.example.stronger_muscles_dashboard
+package com.example.tic_tac
 
 import io.flutter.embedding.android.FlutterActivity
 

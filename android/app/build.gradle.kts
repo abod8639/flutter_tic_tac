@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.stronger_muscles_dashboard"
+    namespace = "com.example.tic_tac"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.stronger_muscles_dashboard"
+        applicationId = "com.example.tic_tac"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
