@@ -40,6 +40,7 @@ class _BoardState extends State<Board> {
           if (state.key == BoardState.Done) {
             boardService.resetBoard();
 
+            String title = 'Winner';
             if (state.value == "") {
               title = "Draw";
             }

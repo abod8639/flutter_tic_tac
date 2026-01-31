@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AlertService {
-  AlertStyle _resultAlertStyle;
+  late AlertStyle _resultAlertStyle;
   AlertStyle get resultAlertStyle => _resultAlertStyle;
 
-  AlertStyle _settingsAlertStyle;
+  late AlertStyle _settingsAlertStyle;
   AlertStyle get settingsAlertStyle => _settingsAlertStyle;
 
   AlertService() {
@@ -18,7 +18,7 @@ class AlertService {
       descStyle: TextStyle(fontWeight: FontWeight.bold),
       animationDuration: Duration(milliseconds: 300),
       buttonAreaPadding: EdgeInsets.all(12),
-      overlayColor: Colors.black.withOpacity(.7),
+      overlayColor: Colors.black.withValues(alpha: .7),
       constraints: BoxConstraints(maxHeight: 200, maxWidth: 250),
       alertBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

@@ -10,22 +10,22 @@ enum BoardState { Done, Play }
 enum GameMode { Solo, Multi }
 
 class BoardService {
-  BehaviorSubject<List<List<String>>> _board$;
+  late BehaviorSubject<List<List<String>>> _board$;
   BehaviorSubject<List<List<String>>> get board$ => _board$;
 
-  BehaviorSubject<String> _player$;
+  late BehaviorSubject<String> _player$;
   BehaviorSubject<String> get player$ => _player$;
 
-  BehaviorSubject<MapEntry<BoardState, String>> _boardState$;
+  late BehaviorSubject<MapEntry<BoardState, String>> _boardState$;
   BehaviorSubject<MapEntry<BoardState, String>> get boardState$ => _boardState$;
 
-  BehaviorSubject<GameMode> _gameMode$;
+  late BehaviorSubject<GameMode> _gameMode$;
   BehaviorSubject<GameMode> get gameMode$ => _gameMode$;
 
-  BehaviorSubject<MapEntry<int, int>> _score$;
+  late BehaviorSubject<MapEntry<int, int>> _score$;
   BehaviorSubject<MapEntry<int, int>> get score$ => _score$;
 
-  String _start;
+  late String _start;
 
   BoardService() {
     _initStreams();
