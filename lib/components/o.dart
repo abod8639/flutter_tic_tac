@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class O extends StatelessWidget {
-  double size;
-  Color color;
+  final double size;
+  final Color color;
 
-  O(this.size, this.color);
+  O(this.size, this.color, {super.key});
 
   @override
   Widget build(BuildContext context) {
