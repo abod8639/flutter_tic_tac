@@ -53,7 +53,7 @@ class GamePageState extends State<GamePage> {
                         Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: MyTheme.cardColor.withOpacity(0.5),
+                            color: MyTheme.cardColor.withRed(30),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: const Board(),

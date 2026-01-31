@@ -24,13 +24,23 @@ class BoardService {
   late BehaviorSubject<MapEntry<int, int>> _score$;
   BehaviorSubject<MapEntry<int, int>> get score$ => _score$;
 
+  late BehaviorSubject<List<List<int>>> _fadingMoves$;
+  BehaviorSubject<List<List<int>>> get fadingMoves$ => _fadingMoves$;
+
   late String _start;
-   List<List<int>> _xMoves = []; 
-   List<List<int>> _oMoves = []; 
+  List<List<int>> _xMoves = [];
+  List<List<int>> _oMoves = [];
   final int maxMoves = 3;
 
   BoardService() {
     _initStreams();
+  }
+
+  void _updateFadingMoves() {
+    List<List<int>> fading = [];
+    if (_xMoves.length == maxMoves) fading.add(_xMoves.first);
+    if (_oMoves.length == maxMoves) fading.add(_oMoves.first);
+    _fadingMoves$.add(fading);
   }
 
   void newMove(int i, int j) {
@@ -51,6 +61,7 @@ class BoardService {
 
     playerMoves.add([i, j]);
     currentBoard[i][j] = player;
+    _updateFadingMoves();
     // ----------------------------
 
     _playMoveSound(player);
@@ -102,6 +113,7 @@ class BoardService {
         currentBoard[oldest[0]][oldest[1]] = " ";
       }
       _oMoves.add([row, col]);
+      _updateFadingMoves();
 
       currentBoard[row][col] = botPlayer;
       _playMoveSound(botPlayer);
@@ -155,10 +167,11 @@ class BoardService {
     return !_board$.value.any((row) => row.any((cell) => cell == " "));
   }
 
-void resetBoard() {
+  void resetBoard() {
     _xMoves.clear();
     _oMoves.clear();
     _board$.add(List.generate(3, (_) => List.generate(3, (_) => " ")));
+    _updateFadingMoves();
     _player$.add(_start);
     _boardState$.add(MapEntry(BoardState.Play, ""));
     
@@ -178,6 +191,9 @@ void resetBoard() {
     _boardState$ = BehaviorSubject<MapEntry<BoardState, String>>.seeded(MapEntry(BoardState.Play, ""));
     _gameMode$ = BehaviorSubject<GameMode>.seeded(GameMode.Solo);
     _score$ = BehaviorSubject<MapEntry<int, int>>.seeded(MapEntry(0, 0));
+    _fadingMoves$ = BehaviorSubject<List<List<int>>>.seeded([]);
     _start = 'X';
   }
+
+
 }

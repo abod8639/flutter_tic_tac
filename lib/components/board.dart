@@ -18,17 +18,19 @@ class _BoardState extends State<Board> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<MapEntry<List<List<String>>, MapEntry<BoardState, String>>>(
-      stream: Rx.combineLatest2(
+    return StreamBuilder<Map<String, dynamic>>(
+      stream: Rx.combineLatest3(
         boardService.board$, 
         boardService.boardState$,
-        (a, b) => MapEntry(a, b)
+        boardService.fadingMoves$,
+        (a, b, c) => {'board': a, 'state': b, 'fading': c}
       ),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const SizedBox.shrink();
 
-        final List<List<String>> board = snapshot.data!.key;
-        final MapEntry<BoardState, String> state = snapshot.data!.value;
+        final List<List<String>> board = snapshot.data!['board'];
+        final MapEntry<BoardState, String> state = snapshot.data!['state'];
+        final List<List<int>> fading = snapshot.data!['fading'];
 
         // استدعاء نافذة النتيجة عند انتهاء اللعبة
         if (state.key == BoardState.Done) {
@@ -56,7 +58,7 @@ class _BoardState extends State<Board> {
                         boardService.newMove(i, j);
                       }
                     },
-                    child: _buildBox(i, j, item),
+                    child: _buildBox(i, j, item, fading),
                   );
                 }).toList(),
               );
@@ -68,11 +70,13 @@ class _BoardState extends State<Board> {
   }
 
   // دالة بناء المربع الصغير
-  Widget _buildBox(int i, int j, String item) {
+  Widget _buildBox(int i, int j, String item, List<List<int>> fading) {
     BorderSide neonBorder = BorderSide(
       width: 1.5,
       color: Colors.white.withOpacity(0.08),
     );
+
+    bool isFading = fading.any((move) => move[0] == i && move[1] == j);
 
     return Container(
       height: MediaQuery.of(context).size.width / 4,
@@ -89,7 +93,12 @@ class _BoardState extends State<Board> {
           transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
           child: item == ' '
               ? const SizedBox.shrink()
-              : (item == 'X' ? const XWidget(45, 10) : const OWidget(45, MyTheme.teal)),
+              : BlinkingWidget(
+                  isBlinking: isFading,
+                  child: item == 'X' 
+                      ? const XWidget(45, 10) 
+                      : const OWidget(45, MyTheme.teal),
+                ),
         ),
       ),
     );
@@ -106,7 +115,6 @@ class _BoardState extends State<Board> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showDialog(
-
         context: context,
         // barrierDismissible: false,
         barrierColor: Colors.black.withOpacity(0.85),
@@ -123,12 +131,6 @@ class _BoardState extends State<Board> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // _buildDialogBtn(Icons.home_rounded, Colors.white10, () {
-                  //   boardService.newGame();
-                  //   Navigator.popUntil(context, (route) => route.isFirst);
-                  // }
-                  // ),
-                  const SizedBox(width: 20),
                   _buildDialogBtn(Icons.replay_rounded, MyTheme.orange, () {
                     boardService.newGame();
                     Navigator.pop(context);
@@ -154,6 +156,61 @@ class _BoardState extends State<Board> {
         ),
         child: Icon(icon, color: Colors.white, size: 28),
       ),
+    );
+  }
+}
+
+class BlinkingWidget extends StatefulWidget {
+  final Widget child;
+  final bool isBlinking;
+
+  const BlinkingWidget({super.key, required this.child, required this.isBlinking});
+
+  @override
+  _BlinkingWidgetState createState() => _BlinkingWidgetState();
+}
+
+class _BlinkingWidgetState extends State<BlinkingWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    if (widget.isBlinking) _controller.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(BlinkingWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isBlinking && !_controller.isAnimating) {
+      _controller.repeat(reverse: true);
+    } else if (!widget.isBlinking && _controller.isAnimating) {
+      _controller.stop();
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Opacity(
+          opacity: widget.isBlinking ? _controller.value : 1.0,
+          child: child,
+        );
+      },
+      child: widget.child,
     );
   }
 }
